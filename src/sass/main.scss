@@ -1,16 +1,5 @@
 @import "./base/reset";
+@import "./base/base";
 @import "./base/typography";
 @import "./layout/flex-grid";
 
-html,
-body {
-	height: 100%;
-}
-
-body {
-	// color: white;
-	font-family: Raysat;
-	// text-align: center;
-	font-size: 80px;
-	// background: linear-gradient(to right bottom, #000, transparent), url("../img/img.jpg");
-}

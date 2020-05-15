@@ -1,5 +1,14 @@
+/* Font definitions */
 @font-face {
 	font-family: Raysat;
 	src: url("../fonts/raysat/RaySat Personal Use.ttf");
 }
 
+/* Typography */
+html {
+	font-size: 62.5%;
+}
+
+body {
+	font-family: Raysat;
+}
