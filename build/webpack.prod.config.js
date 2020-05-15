@@ -45,9 +45,9 @@ module.exports = merge(commonConfig, {
 		        	},
         			{
         	            loader: 'css-loader',
-        	            options: {
-        	              importLoaders: 1
-        	            }
+        	            // options: {
+        	            //   importLoaders: 1
+        	            // }
         			},
         			"postcss-loader",
 		        	"sass-loader"
