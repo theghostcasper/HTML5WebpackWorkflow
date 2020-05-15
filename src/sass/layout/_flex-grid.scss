@@ -1,0 +1,261 @@
+/*
+	Credits: http://sassflexboxgrid.com/
+
+	This is a fully fledged grid system based on flexbox.
+	I removed vendor Prefixes, and changed some names to make it suit my workflow.
+	I also joined some the variables with the code into one file to make it one stand alone module/file.
+*/
+
+/* Variables */
+$grid-columns: 12 !default; // Set number of columns in the grid
+$grid-gutter: 1rem 1rem !default; // Set gutter size
+/* Break points. */
+$xs-max: 40rem !default; // Set xs breakpoint's max width
+$sm-max: 64rem !default; // Set sm breakpoint's max width
+$md-max: 90rem !default; // Set md breakpoint's max width
+$lg-max: 120rem !default; // Set lg breakpoint's max width
+
+$sm-start: ($xs-max + 1); // Generate sm breakpoint's min width
+$md-start: ($sm-max + 1); // Generate md breakpoint's min width
+$lg-start: ($md-max + 1); // Generate lg breakpoint's min width
+$xl-start: ($lg-max + 1); // Generate xl breakpoint's min width
+
+// Create breakpoint range statements to be used in media queries
+$breakpoint-xs-only: "only screen and (max-width: #{$xs-max})"; // 0 -> xs-max range
+$breakpoint-sm-up: "only screen and (min-width: #{$sm-start})"; // sm-start -> up range
+$breakpoint-sm-only: "only screen and (min-width: #{$sm-start}) and (max-width: #{$sm-max})"; // sm-start -> sm-max range
+$breakpoint-md-up: "only screen and (min-width: #{$md-start})"; // md-start -> up range
+$breakpoint-md-only: "only screen and (min-width: #{$md-start}) and (max-width: #{$md-max})"; // md-start -> md-max range
+$breakpoint-lg-up: "only screen and (min-width: #{$lg-start})"; // lg-start -> up range
+$breakpoint-lg-only: "only screen and (min-width: #{$lg-start}) and (max-width: #{$lg-max})"; // lg-start -> lg-max range
+$breakpoint-xl-up: "only screen and (min-width: #{$xl-start})"; // xl-start -> up range
+
+$breakpoints-all: ($breakpoint-xs-only, $breakpoint-sm-up, $breakpoint-sm-only, $breakpoint-md-up, $breakpoint-md-only, $breakpoint-lg-up, $breakpoint-lg-only, $breakpoint-xl-up);
+$breakpoint-ups: ($breakpoint-sm-up, $breakpoint-md-up, $breakpoint-lg-up, $breakpoint-xl-up);
+$breakpoint-all-prefixes: ("xs", "xs-only", "sm", "sm-only", "md", "md-only", "lg", "lg-only", "xl");
+$breakpoint-up-prefixes: ("xs", "sm", "md", "lg", "xl");
+
+.row {
+	box-sizing: border-box;
+	margin: 0 auto;
+	width: 100%;
+	display: flex;
+	flex-wrap: wrap;
+	flex-direction: row;
+	text-align: center;
+
+	&.align-start {
+		align-items: flex-start;	
+	}
+
+	&.align-end {
+		align-items: flex-end;	
+	}
+
+	&.align-center {
+		align-items: center;	
+	}
+
+	&.align-stretch {
+		align-items: stretch;
+	}
+
+	&.direction-col {
+		flex-direction: column;
+	}
+
+	&.show {
+	  display: flex;
+	}
+
+	&.hide {
+		display: none;
+	}
+}
+
+.col {
+	box-sizing: border-box;
+	flex: 1;
+	max-width: 100%;
+	padding: $grid-gutter;
+
+	&.align-start {
+		align-self: flex-start;
+	}
+
+	&.align-end {
+		align-self: flex-end;
+	}
+
+	&.align-center {
+		align-self: center;
+	}
+
+	&.align-stretch {
+		align-self: stretch;
+	}
+
+	&.show {
+		display: block;
+	}
+
+	&.hide {
+		display: none;
+	}
+
+	&.no-gutter {
+    	padding: 0;
+	}
+
+	&.gutter-lr {
+    	padding: 0 $grid-gutter;
+	}
+	&.gutter-tb {
+		padding: $grid-gutter 0;
+	}	 
+}
+
+@for $i from 1 through $grid-columns {
+	.col-#{$i} {
+		flex-basis: 100% / $grid-columns * $i;
+		max-width: 100% / $grid-columns * $i;
+	}
+}
+
+/* Used for generating the columns for the different breakpoints. */
+@mixin col-factory($size) {
+	 @for $i from 1 through $grid-columns {
+	 	.col-#{$size}-#{$i} {
+	 		flex-basis: 100% / $grid-columns * $i;
+	 		max-width: 100% / $grid-columns * $i;
+	 	}
+	 }
+	
+	 /* Justify Content */
+	 .row.justify-start-#{$size} {
+	   justify-content: flex-start;
+	 }
+	 .row.justify-center-#{$size} {
+	   justify-content: center;
+	 }
+	 .row.justify-end-#{$size} {
+	   justify-content: flex-end;
+	 }
+	 .row.justify-space-around-#{$size} {
+	   justify-content: space-around;
+	 }
+	 .row.justify-space-between-#{$size} {
+	   justify-content: space-between;
+	 }
+
+	 /* Align items */
+	 .row.align-items-start-#{$size} {
+	   align-items: flex-start;
+	 }
+	 .row.align-items-center-#{$size} {
+	   align-items: center;
+	 }
+	 .row.align-items-end-#{$size} {
+	   align-items: flex-end;
+	 }
+	
+	 /* Align content */
+	 .row.align-content-start-#{$size} {
+	 	align-content: flex-start;
+	 }
+	 .row.align-content-end-#{$size} {
+	 	align-content: flex-end;
+	 }
+	 .row.align-content-center-#{$size} {
+	 	align-content: center;
+	 }
+	 .row.align-content-stretch-#{$size} {
+	 	align-content: stretch;
+	 }
+	 .row.align-content-space-around-#{$size} {
+	 	align-content: space-around;
+	 }
+	 .row.align-content-space-between-#{$size} {
+	 	align-content: space-between;
+	 }
+}
+
+
+@for $i from 1 through length($breakpoint-up-prefixes) {
+  $size: nth($breakpoint-up-prefixes, $i);
+  @if $size == "xs" {
+    @include col-factory($size);
+  } @else if $size == "sm" {
+    @media #{$breakpoint-sm-up} {
+      @include col-factory($size);
+    }
+  } @else if $size == "md" {
+    @media #{$breakpoint-md-up} {
+      @include col-factory($size);
+    }
+  } @else if $size == "lg" {
+    @media #{$breakpoint-lg-up} {
+      @include col-factory($size);
+    }
+  } @else if $size == "xl" {
+    @media #{$breakpoint-xl-up} {
+      @include col-factory($size);
+    }
+  }
+}
+
+
+/* Visibility */
+@mixin vis-factory($size) {
+  .col.show-#{$size} {
+    display: block;
+  }
+  .row.show-#{$size} {
+    display: flex;
+  }
+  .col.hide-#{$size} {
+    display: none;
+  }
+  .row.hide-#{$size} {
+  	display: none;
+  }
+}
+
+@for $i from 1 through length($breakpoint-all-prefixes) {
+  $size: nth($breakpoint-all-prefixes, $i);
+  @if $size == "xs" {
+    @include vis-factory($size);
+  } @else if $size == "xs-only" {
+    @media #{$breakpoint-xs-only} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "sm" {
+    @media #{$breakpoint-sm-up} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "sm-only" {
+    @media #{$breakpoint-sm-only} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "md" {
+    @media #{$breakpoint-md-up} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "md-only" {
+    @media #{$breakpoint-md-only} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "lg" {
+    @media #{$breakpoint-lg-up} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "lg-only" {
+    @media #{$breakpoint-lg-only} {
+      @include vis-factory($size);
+    }
+  } @else if $size == "xl" {
+    @media #{$breakpoint-xl-up} {
+      @include vis-factory($size);
+    }
+  }
+}
