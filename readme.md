@@ -22,3 +22,8 @@
 	<li>Linting and fixing with eslint Airbnb + prettier</li>
 	<li>Transpiling js with babel</li>
 </ul>
+
+<h1>Structure</h1>
+<p>All the code is written inside the src folder, css and js files should be imported in the main.js</p>
+<p>the static folder is mainly used for some vendor libraries, however, when installing libraries via npm install, there's no use for the static folder.</p>
+
